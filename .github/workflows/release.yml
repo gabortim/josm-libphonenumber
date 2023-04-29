@@ -1,0 +1,58 @@
+name: Release assets
+
+on:
+  workflow_dispatch:
+  schedule:
+    # https://crontab.guru/#0_12_*_*_*
+    # At 12:00 (UTC time!)
+    - cron:  '0 12 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  # https://github.com/orgs/community/discussions/27128#discussioncomment-3254735
+  check_commits:
+    runs-on: ubuntu-latest
+    name: Check commits
+    outputs:
+      release_needed: ${{ steps.release_needed.outputs.release_needed }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # checkout the full repo
+      - id: release_needed
+        name: Check if Dependabot authored a commit since the last tag
+        shell: bash
+        # check if dependabot created a commit since the last tag
+        run: |
+          if test -z "$(git rev-list "$(git log --tags -n 1 --pretty="%H")"..HEAD --author="dependabot")"; then
+            echo "Release NOT needed"
+            echo "release_needed=false" >>$GITHUB_OUTPUT
+          else
+            echo "Release needed"
+            printf "Commit(s) since the last release:\n%s\n" "$(git rev-list "$(git log --tags -n 1 --pretty="%H")"..HEAD --author="dependabot")"
+            echo "release_needed=true" >>$GITHUB_OUTPUT
+          fi
+          exit 0
+  build:
+    needs: check_commits
+    uses: ./.github/workflows/reusable_build.yml
+    if: ${{ needs.check_commits.outputs.release_needed == 'true' }}
+  release:
+    name: Asset release
+    needs:
+      - build
+    if: ${{ needs.check_commits.outputs.release_needed == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download built binary
+        uses: actions/download-artifact@v3
+        with:
+          name: out_jar
+      - name: Create GitHub tag and release
+        uses: softprops/action-gh-release@v1
+        with:
+          body: See the libphonenumber release [${{ needs.build.outputs.lib_version }}](https://github.com/google/libphonenumber/releases/tag/v${{ needs.build.outputs.lib_version }})
+          tag_name: ${{ needs.build.outputs.lib_version }}
+          files: "*.jar"

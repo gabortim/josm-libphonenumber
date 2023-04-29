@@ -1,0 +1,61 @@
+plugins {
+    id "java"
+    id "org.openstreetmap.josm" version "0.8.2"
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs "src"
+        }
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+version = "8.13.11"
+String versionFile = "version.txt"
+
+josm {
+    pluginName = "libphonenumber"
+    josmCompileVersion = "18622"
+    manifest {
+        author = "gaben"
+        description = "Provides Google libphonenumber library components. Not meant to be installed directly by users, but rather as a dependency for other plugins."
+        minJosmVersion = "17428"
+        canLoadAtRuntime = true
+        mainClass = "org.openstreetmap.josm.plugins.libphonenumber.LibphonenumberPlugin.java"
+        website = new URL("https://github.com/gabortim/josm-libphonenumber")
+    }
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/com.googlecode.libphonenumber/libphonenumber
+    packIntoJar("com.googlecode.libphonenumber:libphonenumber:$version")
+
+    // https://mvnrepository.com/artifact/com.googlecode.libphonenumber/geocoder
+    packIntoJar("com.googlecode.libphonenumber:geocoder:2.205")
+}
+
+jar {
+    from("GPL-v3.0.txt")
+    from("README.md")
+}
+
+tasks.register("storeVersion") {
+    doLast {
+        new File(versionFile).text = "$version"
+    }
+}
+tasks.jar.dependsOn("storeVersion")
+
+tasks.clean {
+    delete(versionFile)
+}
