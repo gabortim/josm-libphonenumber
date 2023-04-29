@@ -56,6 +56,6 @@ jobs:
       - name: Create GitHub tag and release
         uses: softprops/action-gh-release@v1
         with:
-          body: See the libphonenumber release [${{ needs.build.outputs.lib_version }}](https://github.com/google/libphonenumber/releases/tag/v${{ needs.build.outputs.lib_version }})
+          body: See the libphonenumber release [${{ needs.build.outputs.lib_version }}](https://github.com/google/libphonenumber/releases/tag/v${{ needs.build.outputs.lib_version }}).
           tag_name: ${{ needs.build.outputs.lib_version }}
           files: "*.jar"

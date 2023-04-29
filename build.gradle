@@ -31,7 +31,7 @@ josm {
         description = "Provides Google libphonenumber library components. Not meant to be installed directly by users, but rather as a dependency for other plugins."
         minJosmVersion = "17428"
         canLoadAtRuntime = true
-        mainClass = "org.openstreetmap.josm.plugins.libphonenumber.LibphonenumberPlugin.java"
+        mainClass = "org.openstreetmap.josm.plugins.libphonenumber.LibphonenumberPlugin"
         website = new URL("https://github.com/gabortim/josm-libphonenumber")
     }
 }
