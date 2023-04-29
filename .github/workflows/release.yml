@@ -2,6 +2,11 @@ name: Release assets
 
 on:
   workflow_dispatch:
+    inputs:
+      commit_check_bypass:
+        description: Bypass Dependabot commit check for manual release
+        required: true
+        default: "false"
   schedule:
     # https://crontab.guru/#0_12_*_*_*
     # At 12:00 (UTC time!)
@@ -38,12 +43,10 @@ jobs:
   build:
     needs: check_commits
     uses: ./.github/workflows/reusable_build.yml
-    if: ${{ needs.check_commits.outputs.release_needed == 'true' }}
+    if: ${{ needs.check_commits.outputs.release_needed == 'true' || github.event.inputs.commit_check_bypass == 'true' }}
   release:
     name: Asset release
-    needs:
-      - build
-    if: ${{ needs.check_commits.outputs.release_needed == 'true' }}
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Download built binary
