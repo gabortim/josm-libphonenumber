@@ -9,7 +9,7 @@ public class LibphonenumberPlugin extends Plugin {
      *
      * @param info the plugin information describing the plugin.
      */
-    protected LibphonenumberPlugin(PluginInformation info) {
+    public LibphonenumberPlugin(PluginInformation info) {
         super(info);
     }
 }
