@@ -45,7 +45,7 @@ dependencies {
 }
 
 jar {
-    from("GPL-v3.0.txt")
+    from("LICENSE")
     from("README.md")
 }
 
