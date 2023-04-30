@@ -1,6 +1,20 @@
 plugins {
     id "java"
     id "org.openstreetmap.josm" version "0.8.2"
+    id "maven-publish"
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/gabortim/josm-libphonenumber"
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
 }
 
 repositories {
