@@ -34,7 +34,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-version = "8.13.15"
+version = "8.13.16"
 String versionFile = "version.txt"
 
 josm {
