@@ -55,7 +55,7 @@ dependencies {
     packIntoJar("com.googlecode.libphonenumber:libphonenumber:$version")
 
     // https://mvnrepository.com/artifact/com.googlecode.libphonenumber/geocoder
-    packIntoJar("com.googlecode.libphonenumber:geocoder:2.213")
+    packIntoJar("com.googlecode.libphonenumber:geocoder:2.214")
 }
 
 jar {
