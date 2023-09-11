@@ -14,7 +14,7 @@ jobs:
     outputs:
       lib_version: ${{ steps.version_info.outputs.LIBPHONENUMBER_VERSION }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Validate wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Set up JDK 11
