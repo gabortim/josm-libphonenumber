@@ -3,17 +3,25 @@
 # Please see the documentation for all configuration options:
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
+---
 version: 2
 updates:
-  - package-ecosystem: "gradle"
-    directory: "/"
+  - package-ecosystem: gradle
+    directory: /
     schedule:
-      interval: "daily"
-      timezone: "Europe/Budapest"
+      interval: daily
+      timezone: Europe/Budapest
       time: "09:00"
+    groups:
+      libphonenumber:
+        patterns:
+          - com.googlecode.libphonenumber*
+        update-types:
+          - minor
+          - patch
   # Maintain dependencies for GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: "weekly"
-      timezone: "Europe/Budapest"
+      interval: weekly
+      timezone: Europe/Budapest
