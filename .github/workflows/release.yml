@@ -31,7 +31,7 @@ jobs:
         shell: bash
         # check if dependabot created a commit since the last tag
         run: |
-          if test -z "$(git rev-list "$(git log --tags -n 1 --pretty="%H")"..HEAD --author="dependabot")"; then
+          if test -z "$(git rev-list "$(git log --tags -n 1 --pretty="%H")"..HEAD --author="dependabot" --grep=".*libphonenumber.*")"; then
             echo "Release NOT needed"
             echo "release_needed=false" >>$GITHUB_OUTPUT
           else
