@@ -1,7 +1,7 @@
 The repository contains only building scripts for repackaging
 the libphonenumber components for [JOSM](https://josm.openstreetmap.de/).
 
-Currently compiled with Java 11 in Java 8 binary compatibility mode. 
+Currently compiled with Java 21 in Java 17 binary compatibility mode. 
 
 ### I found a bug!
 1. Check if reproducible on the [online demo](http://libphonenumber.appspot.com/).
