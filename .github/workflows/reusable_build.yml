@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build jar
     runs-on: ubuntu-latest
     outputs:
       lib_version: ${{ steps.version_info.outputs.LIBPHONENUMBER_VERSION }}
@@ -17,11 +17,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate wrapper
         uses: gradle/wrapper-validation-action@v3
-      - name: Set up JDK 11
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '11'
-          distribution: 'temurin'
+          java-version: '21'
+          distribution: 'zulu'
           architecture: 'x64'
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v3

@@ -30,8 +30,8 @@ sourceSets {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 version = "8.13.35"
@@ -44,6 +44,7 @@ josm {
         author = "gaben"
         description = "Provides Google libphonenumber library components. Not meant to be installed directly by users, but rather as a dependency for other plugins."
         minJosmVersion = "17428"
+        minJavaVersion = 17
         canLoadAtRuntime = true
         mainClass = "org.openstreetmap.josm.plugins.libphonenumber.LibphonenumberPlugin"
         website = new URL("https://github.com/gabortim/josm-libphonenumber")
