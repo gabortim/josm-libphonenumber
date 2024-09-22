@@ -21,17 +21,15 @@ repositories {
     mavenCentral()
 }
 
-sourceSets {
-    main {
-        java {
-            srcDirs "src"
-        }
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+compileJava {
+    // https://docs.gradle.org/current/userguide/building_java_projects.html#sec:compiling_with_release
+    options.release = 17
 }
 
 version = "8.13.45"
@@ -47,7 +45,7 @@ josm {
         minJavaVersion = 17
         canLoadAtRuntime = true
         mainClass = "org.openstreetmap.josm.plugins.libphonenumber.LibphonenumberPlugin"
-        website = new URL("https://github.com/gabortim/josm-libphonenumber")
+        website = new URI("https://github.com/gabortim/josm-libphonenumber").toURL()
     }
 }
 
