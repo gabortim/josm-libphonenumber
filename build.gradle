@@ -32,7 +32,7 @@ compileJava {
     options.release = 17
 }
 
-version = "9.0.2"
+version = "9.0.3"
 String versionFile = "version.txt"
 
 josm {
@@ -54,7 +54,7 @@ dependencies {
     packIntoJar("com.googlecode.libphonenumber:libphonenumber:$version")
 
     // https://mvnrepository.com/artifact/com.googlecode.libphonenumber/geocoder
-    packIntoJar("com.googlecode.libphonenumber:geocoder:3.2")
+    packIntoJar("com.googlecode.libphonenumber:geocoder:3.3")
 }
 
 jar {
