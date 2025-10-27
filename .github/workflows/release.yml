@@ -23,7 +23,7 @@ jobs:
     outputs:
       release_needed: ${{ steps.release_needed.outputs.release_needed }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0 # checkout the full repo
       - id: release_needed
@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download built binary
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: out_jar
       - name: Create GitHub tag and release
