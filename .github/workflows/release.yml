@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download built binary
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: out_jar
       - name: Create GitHub tag and release
