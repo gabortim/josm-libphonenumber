@@ -10,7 +10,7 @@ on:
   schedule:
     # https://crontab.guru/#0_12_*_*_*
     # At 12:00 (UTC time!)
-    - cron:  '0 12 * * *'
+    - cron: '0 12 * * *'
 
 permissions:
   contents: write
@@ -56,6 +56,6 @@ jobs:
       - name: Create GitHub tag and release
         uses: softprops/action-gh-release@v2
         with:
-          body: See the libphonenumber release [${{ needs.build.outputs.lib_version }}](https://github.com/google/libphonenumber/releases/tag/v${{ needs.build.outputs.lib_version }}).
-          tag_name: ${{ needs.build.outputs.lib_version }}
+          body: See the libphonenumber release [${{ needs.build.outputs.version }}](https://github.com/google/libphonenumber/releases/tag/v${{ needs.build.outputs.version }}).
+          tag_name: ${{ needs.build.outputs.version }}
           files: "*.jar"

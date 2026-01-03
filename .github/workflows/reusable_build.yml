@@ -3,31 +3,36 @@ name: Reusable build workflow
 on:
   workflow_call:
     outputs:
-      lib_version:
-        description: "libphonenumber version string"
-        value: ${{ jobs.build.outputs.lib_version }}
+      version:
+        description: "Project version string"
+        value: ${{ jobs.build.outputs.version }}
 
 jobs:
   build:
     name: Build jar
     runs-on: ubuntu-latest
     outputs:
-      lib_version: ${{ steps.version_info.outputs.LIBPHONENUMBER_VERSION }}
+      version: ${{ steps.version_info.outputs.VERSION }}
     steps:
       - uses: actions/checkout@v6
-      - name: Set up JDK 21
+      - name: Extract versions from catalog
+        id: catalog_info
+        run: |
+          echo "JAVA_VERSION=$(sed -n 's/^javaLauncher = "\(.*\)"/\1/p' gradle/libs.versions.toml)" >> $GITHUB_OUTPUT
+          echo "VERSION=$(sed -n 's/^libphonenumber = "\(.*\)"/\1/p' gradle/libs.versions.toml)" >> $GITHUB_OUTPUT
+      - name: Set up JDK
         uses: actions/setup-java@v5
         with:
-          java-version: '21'
+          java-version: ${{ steps.catalog_info.outputs.JAVA_VERSION }}
           distribution: 'zulu'
           architecture: 'x64'
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
       - name: Build project
         run: ./gradlew build
-      - name: Save version to an environment variable
+      - name: Set version output
         id: version_info
-        run: echo LIBPHONENUMBER_VERSION="$(cat version.txt)" >> $GITHUB_OUTPUT
+        run: echo "VERSION=${{ steps.catalog_info.outputs.VERSION }}" >> $GITHUB_OUTPUT
       - name: Upload built binary
         uses: actions/upload-artifact@v6
         with:

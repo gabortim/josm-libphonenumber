@@ -1,8 +1,10 @@
 plugins {
     id "java"
-    id "org.openstreetmap.josm" version "0.8.2"
+    alias libs.plugins.josm
     id "maven-publish"
 }
+
+version = libs.versions.libphonenumber.get()
 
 publishing {
     repositories {
@@ -23,52 +25,38 @@ repositories {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(libs.versions.javaLauncher.get())
     }
 }
 
 compileJava {
     // https://docs.gradle.org/current/userguide/building_java_projects.html#sec:compiling_with_release
-    options.release = 17
+    options.release = libs.versions.javaTarget.get().toInteger()
 }
-
-version = "9.0.21"
-String versionFile = "version.txt"
 
 josm {
     pluginName = "libphonenumber"
-    josmCompileVersion = "18622"
+    josmCompileVersion = libs.versions.josmCompile.get()
     manifest {
-        author = "gaben"
-        description = "Provides Google libphonenumber library components. Not meant to be installed directly by users, but rather as a dependency for other plugins."
-        minJosmVersion = "17428"
-        minJavaVersion = 17
+        author = project.pluginAuthor
+        description = project.pluginDescription
+        minJosmVersion = libs.versions.minJosm.get()
+        minJavaVersion = libs.versions.javaTarget.get().toInteger()
         canLoadAtRuntime = true
         mainClass = "org.openstreetmap.josm.plugins.libphonenumber.LibphonenumberPlugin"
-        website = new URI("https://github.com/gabortim/josm-libphonenumber").toURL()
+        website = new URI(project.pluginWebsite).toURL()
     }
 }
 
 dependencies {
     // https://mvnrepository.com/artifact/com.googlecode.libphonenumber/libphonenumber
-    packIntoJar("com.googlecode.libphonenumber:libphonenumber:$version")
+    packIntoJar(libs.libphonenumber)
 
     // https://mvnrepository.com/artifact/com.googlecode.libphonenumber/geocoder
-    packIntoJar("com.googlecode.libphonenumber:geocoder:3.21")
+    packIntoJar(libs.geocoder)
 }
 
 jar {
     from("LICENSE")
     from("README.md")
-}
-
-tasks.register("storeVersion") {
-    doLast {
-        new File(versionFile).text = "$version"
-    }
-}
-tasks.jar.dependsOn("storeVersion")
-
-tasks.clean {
-    delete(versionFile)
 }

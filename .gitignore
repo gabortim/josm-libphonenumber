@@ -4,9 +4,6 @@
 # Ignore Gradle build output directory
 build/
 
-
 # IntelliJ IDEA stuff
 .idea/
 *.iml
-
-version.txt
