@@ -34,7 +34,7 @@ jobs:
         id: version_info
         run: echo "VERSION=${{ steps.catalog_info.outputs.VERSION }}" >> $GITHUB_OUTPUT
       - name: Upload built binary
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: out_jar
           path: build/dist/*.jar
