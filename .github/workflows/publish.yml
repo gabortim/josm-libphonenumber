@@ -9,7 +9,7 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Extract Java version from catalog
         id: catalog_info
         run: echo "JAVA_VERSION=$(sed -n 's/^javaLauncher = "\(.*\)"/\1/p' gradle/libs.versions.toml)" >> $GITHUB_OUTPUT
