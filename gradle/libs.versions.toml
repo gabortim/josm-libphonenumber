@@ -1,6 +1,6 @@
 [versions]
-libphonenumber = "9.0.33"
-geocoder = "3.33"
+libphonenumber = "9.0.34"
+geocoder = "3.34"
 josmCompile = "19439"
 minJosm = "17428"
 josmGradlePlugin = "0.8.2"
