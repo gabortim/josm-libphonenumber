@@ -21,7 +21,7 @@ jobs:
           echo "JAVA_VERSION=$(sed -n 's/^javaLauncher = "\(.*\)"/\1/p' gradle/libs.versions.toml)" >> $GITHUB_OUTPUT
           echo "VERSION=$(sed -n 's/^libphonenumber = "\(.*\)"/\1/p' gradle/libs.versions.toml)" >> $GITHUB_OUTPUT
       - name: Set up JDK
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           java-version: ${{ steps.catalog_info.outputs.JAVA_VERSION }}
           distribution: 'zulu'
